@@ -3,6 +3,8 @@ import AddClient from './AddClient';
 
 export const revalidate = 10; 
 
+export const dynamic = 'force-dynamic';
+
 export default async function AddCount() {
   const users = await prisma.user.findMany({
     select: {

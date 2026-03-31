@@ -1,7 +1,7 @@
 import prisma from '@/lib/prisma';
 import DashboardClient from './DashboardClient';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export default async function Dashboard() {
   const users = await prisma.user.findMany({
