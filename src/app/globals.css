@@ -1,26 +1,54 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-saffron-50: #fff7ed;
+  --color-saffron-100: #ffedd5;
+  --color-saffron-200: #fed7aa;
+  --color-saffron-300: #fdba74;
+  --color-saffron-400: #fb923c;
+  --color-saffron-500: #ff9933; /* Soft Saffron Primary */
+  --color-saffron-600: #ea580c;
+
+  --color-gold-200: #fde68a;
+  --color-gold-400: #fbbf24;
+  --color-gold-500: #ffd700; /* Warm Gold */
+
+  --color-navy-800: #1e1b4b;
+  --color-navy-900: #0f0a29;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* We map background manually via exact gradients below */
+    --foreground: #ffffff;
   }
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Deep Navy -> Dark Purple -> Black */
+  background: linear-gradient(135deg, #0f0a29 0%, #170d36 50%, #050505 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Reusable Glass Classes */
+@layer utilities {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-3xl;
+  }
+  
+  .glass-input {
+    @apply bg-black/30 border border-white/10 focus:border-gold-500/50 focus:ring-2 focus:ring-gold-500/20 text-white rounded-2xl outline-none transition-all placeholder:text-white/30;
+  }
+
+  .glow-button {
+    @apply bg-gradient-to-r from-saffron-500 to-gold-500 text-[#0f0a29] font-bold rounded-2xl shadow-[0_0_15px_rgba(255,153,51,0.5)] hover:shadow-[0_0_25px_rgba(255,215,0,0.8)] transition-all;
+  }
+}
+
+/* Recharts overrides for dark mode */
+.recharts-cartesian-grid-horizontal line, 
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(255, 255, 255, 0.05);
 }
